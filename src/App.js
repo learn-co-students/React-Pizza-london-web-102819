@@ -8,7 +8,12 @@ const PIZZA_URL = "http://localhost:3000/pizzas/";
 class App extends Component {
 
     state = {
-        editedPizza: false, 
+        editedPizza: {
+            topping: "",
+            id: "",
+            size: "Small",
+            vegetarian: false
+        },
         pizzas: []
     }
 
@@ -31,7 +36,7 @@ class App extends Component {
             },
             body: JSON.stringify(pizza) 
         }
-         
+
         fetch(PIZZA_URL + (pizza.id? pizza.id : ""), pizzaObj)
             .then(resp => resp.json())
             .then(returnedPizza => pizza.id? this.setState({
@@ -40,9 +45,33 @@ class App extends Component {
                     return p;
                 })}) : this.setState({pizzas: [...this.state.pizzas, returnedPizza]})
             );
-
+         this.setState({editedPizza : {
+            topping: "",
+            id: "",
+            size: "Small",
+            vegetarian: false
+        }
+        })
     }
 
+    handleVegetarianChange = () => {
+        this.setState({
+            editedPizza: {
+                ...this.state.editedPizza,
+                vegetarian: !this.state.editedPizza.vegetarian 
+            }   
+        })
+    }
+
+
+    handleChange = e => {
+        this.setState({
+            editedPizza: {
+                ...this.state.editedPizza,
+                [e.target.name]: e.target.value   
+            }
+        })
+    }
     handleEditClick = pizza => {
         this.setState({
             editedPizza: {...pizza}
@@ -53,10 +82,15 @@ class App extends Component {
         return (
             <Fragment>
                 <Header/>
-                <PizzaForm handleSubmit = {this.handleSubmit} editedPizza = {this.state.editedPizza}/>
+                <PizzaForm
+                    handleChange = {this.handleChange}
+                    handleVegetarianChange = {this.handleVegetarianChange}
+                    handleSubmit = {() => this.handleSubmit(this.state.editedPizza)} 
+                    editedPizza = {this.state.editedPizza}
+                />
                 <PizzaList pizzas = {this.state.pizzas} handleEditClick = {this.handleEditClick}/>
             </Fragment>
-        );
+);
     }
 }
 

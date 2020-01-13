@@ -8,9 +8,9 @@
     },
     {
       "id": 2,
-      "topping": "Pepperoni",
+      "topping": "Hasdfsd",
       "size": "Small",
-      "vegetarian": false
+      "vegetarian": true
     },
     {
       "id": 3,
@@ -88,6 +88,24 @@
       "topping": "asdfs",
       "id": 15,
       "size": "Medium",
+      "vegetarian": true
+    },
+    {
+      "topping": "Ham and cheese",
+      "id": 16,
+      "size": "Medium",
+      "vegetarian": true
+    },
+    {
+      "topping": "Gooosdfsd",
+      "id": 17,
+      "size": "Medium",
+      "vegetarian": true
+    },
+    {
+      "topping": "Loggins",
+      "id": 18,
+      "size": "Large",
       "vegetarian": true
     }
   ]
