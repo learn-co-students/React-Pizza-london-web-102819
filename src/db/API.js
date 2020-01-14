@@ -15,4 +15,4 @@ const PATCH_PIZZA = (pizzaID,configObj) => {
    .then (resp => resp.json())
 }
 
-export default { GET_ALL_PIZZA, POST_NEW_PIZZA}
+export default { GET_ALL_PIZZA, POST_NEW_PIZZA, PATCH_PIZZA}

@@ -8,14 +8,18 @@ import API from './db/API'
 class App extends Component {
   state = {
     pizzas: [],
-    selectedPizzaEdit:[]
+    editedPizza: {}
   }
   render() {
-    const { pizzas } = this.state
+    const { pizzas, editedPizza } = this.state
     return (
       <Fragment>
         <Header/>
-        <PizzaForm pizzas={pizzas} onSubmitPizzaForm={this.onSubmitPizzaForm} selectedPizza={this.selectedPizza()}/>
+        <PizzaForm 
+          onSubmitPizzaForm={this.onSubmitPizzaForm}
+          selectedPizza={editedPizza} 
+          onPizzaChange={this.onPizzaChange}
+        />
         <PizzaList pizzas={pizzas} onEditingPizza={this.onEditingPizza} />
       </Fragment>
     );
@@ -28,56 +32,77 @@ class App extends Component {
   }
 
   // pizza form _ newOrder/update pizza
-  onSubmitPizzaForm = (pizza) =>{
+  onSubmitPizzaForm = (e) =>{
+    let pizza = this.state.editedPizza;
+    if (pizza.id){
+      let configObj = {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(pizza)
+      }
+      API.PATCH_PIZZA(this.state.editedPizza.id,configObj).then(pizzaData => 
+        this.setState({
+          pizzas:this.state.pizzas.map(pizza=> {return pizza.id === pizzaData.id ? pizzaData : pizza }) 
+        })
+      );
+    } else {
 //POST configObj
-    // let configObj = {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     "Accept": "application/json"
-    //   },
-    //   body: JSON.stringify(pizza)
-    // }
-//PATCH configObj
-    let configObj = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      },
-      body: JSON.stringify(pizza)
+      let configObj = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify(pizza)
+      }
+      API.POST_NEW_PIZZA(configObj).then(pizzaData =>
+        this.setState({
+          pizzas:[...this.state.pizzas, pizzaData]
+        })        
+      );
     }
-    API.POST_NEW_PIZZA(configObj).then(pizzaData => 
-      this.setState({
-        pizzas:this.state.pizzas.map(pizza=> {return pizza.id === pizzaData.id ? pizzaData : pizza }) 
-      })
-    );
+    this.setState({
+      editedPizza: {
+        id: '',
+        topping: '',
+        size: 'Small',
+        vegetarian: ''
+      }
+    })       
   }
 
+  //on clikcing edit
   onEditingPizza = (pizzaID) => {
     this.setState({
-      selectedPizzaEdit:[pizzaID]
+      editedPizza: this.state.pizzas.find(pizza => pizza.id === pizzaID)
     })
   }
-  //selectedPizza 
-  selectedPizza = () =>{
-    if (this.state.selectedPizzaEdit.length !== 0){
-      let pizza = this.state.pizzas.filter(pizza => pizza.id === this.state.selectedPizzaEdit[0])[0];
-      // console.log(pizza)
-      return pizza;
-    } else {
-      return this.defaultPizza();
-    }
-  } 
 
-  defaultPizza = () => {
-    return {
-      id: null,
-      size: 'Small',
-      topping: null,
-      vegetarian: null
-    }
-  }
+
+  //onPizzaChange
+  onPizzaChange = (e) => {
+
+
+    let name = e.target.name;
+    let value = e.target.value; 
+
+    name === "vegetarian" 
+    ? this.setState({
+      editedPizza: {
+        ...this.state.editedPizza,
+        vegetarian: value === 'Vegetarian' ? true : false 
+      }
+    })
+    : this.setState(previousState=>({
+      editedPizza: {
+        ...previousState.editedPizza,
+        [name]: value
+      }
+    })
+  )}
 }
 
 
