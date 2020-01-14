@@ -1,11 +1,11 @@
 import React from "react"
 
-const Pizza = () => {
+const Pizza = ({pizza}) => {
   return(
     <tr>
-      <td>{"Replace Me With Pizza Topping"}</td>
-      <td>{"Replace Me With Pizza Size"}</td>
-      <td>{"Replace Me With Vegatarian"}</td>
+      <td>{pizza.topping}</td>
+      <td>{pizza.size}</td>
+      <td>{pizza.vegetarian ? "I'm safe for vegitarians" : "Vegitarians stay away"}</td>
       <td><button type="button" className="btn btn-primary">Edit Pizza</button></td>
     </tr>
   )
