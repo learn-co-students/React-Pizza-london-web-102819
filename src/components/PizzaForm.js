@@ -1,15 +1,16 @@
 import React from "react"
-const pizzaDefaultState = {
-  id: null,
-  size: "Small",
-  topping: null,
-  vegetarian: null
-}
+
 class PizzaForm extends React.Component{
-  state = pizzaDefaultState;
+  state = {
+    id: null,
+    size: "Small",
+    topping: null,
+    vegetarian: null
+  }
 
   render (){
     return(
+      this.selectedPizza() ||
       <div className="form-row" onChange={this.onPizzaChange}>
         <div className="col-5">
             <input type="text" className="form-control" placeholder="Pizza Topping" name="topping" value={this.state.topping} />
@@ -54,9 +55,28 @@ class PizzaForm extends React.Component{
   //onSubmitPizza
   handleSubmitPizza = () => {
     this.props.onSubmitPizzaForm(this.state);
-    this.setState(pizzaDefaultState);
-
+    this.setState({
+      id: null,
+      size: "Small",
+      topping: '',
+      vegetarian: null
+    });
   }
+  //selectedPizza 
+  selectedPizza = () =>{
+    if (this.props.selectedPizzaEdit.length !== 0){
+      let pizza = this.props.pizzas.filter(pizza => pizza.id === this.props.selectedPizzaEdit[0])[0];
+      const vegetarian = () => pizza.vegetarian ? "Vegetarian" : "Not Vegetarian";
+      // console.log(vegetarian())
+      this.setState({
+        id: pizza.id,
+        size: pizza.size,
+        topping: pizza.topping,
+        vegetarian: vegetarian()
+      });
+    }
+  }
+  
 
 }
 export default PizzaForm

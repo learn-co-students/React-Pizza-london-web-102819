@@ -5,15 +5,16 @@ import PizzaList from './containers/PizzaList'
 import API from './db/API'
 class App extends Component {
   state = {
-    pizzas: []
+    pizzas: [],
+    selectedPizzaEdit:[]
   }
   render() {
-    const { pizzas } = this.state
+    const { pizzas,selectedPizzaEdit } = this.state
     return (
       <Fragment>
         <Header/>
-        <PizzaForm pizzas={pizzas} onSubmitPizzaForm={this.onSubmitPizzaForm}/>
-        <PizzaList pizzas={pizzas}/>
+        <PizzaForm pizzas={pizzas} onSubmitPizzaForm={this.onSubmitPizzaForm} selectedPizzaEdit={selectedPizzaEdit}/>
+        <PizzaList pizzas={pizzas} onEditingPizza={this.onEditingPizza} />
       </Fragment>
     );
   }
@@ -24,10 +25,15 @@ class App extends Component {
     this.pizzas();
   }
 
-  // pizza form functions
+  // pizza form _ newOrder/update pizza
   onSubmitPizzaForm = (pizza) =>{
     this.setState({
       pizzas:[...this.state.pizzas, pizza]
+    })
+  }
+  onEditingPizza = (pizzaID) => {
+    this.setState({
+      selectedPizzaEdit:[pizzaID]
     })
   }
 }
