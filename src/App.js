@@ -12,7 +12,7 @@ class App extends Component {
     return (
       <Fragment>
         <Header/>
-        <PizzaForm pizzas={pizzas}/>
+        <PizzaForm pizzas={pizzas} onSubmitPizzaForm={this.onSubmitPizzaForm}/>
         <PizzaList pizzas={pizzas}/>
       </Fragment>
     );
@@ -25,6 +25,11 @@ class App extends Component {
   }
 
   // pizza form functions
+  onSubmitPizzaForm = (pizza) =>{
+    this.setState({
+      pizzas:[...this.state.pizzas, pizza]
+    })
+  }
 }
 
 
