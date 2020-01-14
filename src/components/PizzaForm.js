@@ -5,8 +5,8 @@ class PizzaForm extends React.Component{
   state = {
     id: null,
     size: "Small",
-    topping: null,
-    vegetarian: null
+    topping: '',
+    vegetarian: ''
   }
 
   render (){

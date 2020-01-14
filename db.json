@@ -63,14 +63,8 @@
     {
       "id": 11,
       "size": "Medium",
-      "topping": "asdfo",
-      "vegetarian": "Not Vegetarian"
-    },
-    {
-      "id": 12,
-      "size": "Large",
-      "topping": "asdfoij",
-      "vegetarian": "Not Vegetarian"
+      "topping": "asdfdsaf",
+      "vegetarian": true
     }
   ]
 }

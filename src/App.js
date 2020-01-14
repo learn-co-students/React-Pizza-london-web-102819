@@ -15,7 +15,11 @@ class App extends Component {
     return (
       <Fragment>
         <Header/>
-        <PizzaForm pizzas={pizzas} onSubmitPizzaForm={this.onSubmitPizzaForm} selectedPizza={this.selectedPizza()}/>
+        <PizzaForm 
+          pizzas={pizzas} 
+          onSubmitPizzaForm={this.onSubmitPizzaForm} 
+          selectedPizza={this.selectedPizza()}
+        />
         <PizzaList pizzas={pizzas} onEditingPizza={this.onEditingPizza} />
       </Fragment>
     );
@@ -29,6 +33,7 @@ class App extends Component {
 
   // pizza form _ newOrder/update pizza
   onSubmitPizzaForm = (pizza) =>{
+    pizza.vegetarian = pizza.vegetarian === 'Vegetarian'
     let configObj = {
       method: "POST",
       headers: {
