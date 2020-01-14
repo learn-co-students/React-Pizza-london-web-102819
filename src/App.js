@@ -3,17 +3,19 @@ import Header from './components/Header'
 import PizzaForm from './components/PizzaForm'
 import PizzaList from './containers/PizzaList'
 import API from './db/API'
+
+
 class App extends Component {
   state = {
     pizzas: [],
     selectedPizzaEdit:[]
   }
   render() {
-    const { pizzas,selectedPizzaEdit } = this.state
+    const { pizzas } = this.state
     return (
       <Fragment>
         <Header/>
-        <PizzaForm pizzas={pizzas} onSubmitPizzaForm={this.onSubmitPizzaForm} selectedPizzaEdit={selectedPizzaEdit}/>
+        <PizzaForm pizzas={pizzas} onSubmitPizzaForm={this.onSubmitPizzaForm} selectedPizza={this.selectedPizza()}/>
         <PizzaList pizzas={pizzas} onEditingPizza={this.onEditingPizza} />
       </Fragment>
     );
@@ -27,16 +29,34 @@ class App extends Component {
 
   // pizza form _ newOrder/update pizza
   onSubmitPizzaForm = (pizza) =>{
-    this.setState({
-      pizzas:[...this.state.pizzas, pizza]
-    })
+    let configObj = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify(pizza)
+    }
+    API.POST_NEW_PIZZA(configObj).then(pizzaData => 
+      this.setState({
+        pizzas:[...this.state.pizzas, pizzaData]
+      })
+    );
   }
   onEditingPizza = (pizzaID) => {
     this.setState({
       selectedPizzaEdit:[pizzaID]
     })
   }
+  //selectedPizza 
+  selectedPizza = () =>{
+    if (this.state.selectedPizzaEdit.length !== 0){
+      let pizza = this.state.pizzas.filter(pizza => pizza.id === this.state.selectedPizzaEdit[0])[0];
+      // console.log(pizza)
+      return pizza;
+    }
+  } 
 }
 
 
-export default App;
+export default App

@@ -1,6 +1,7 @@
 import React from "react"
 
 class PizzaForm extends React.Component{
+
   state = {
     id: null,
     size: "Small",
@@ -10,13 +11,17 @@ class PizzaForm extends React.Component{
 
   render (){
     return(
-      this.selectedPizza() ||
       <div className="form-row" onChange={this.onPizzaChange}>
         <div className="col-5">
-            <input type="text" className="form-control" placeholder="Pizza Topping" name="topping" value={this.state.topping} />
+            <input 
+              type="text" 
+              className="form-control" 
+              placeholder="Pizza Topping" 
+              name="topping" 
+              value={this.state.topping} />
         </div>
         <div className="col" >
-          <select value={this.state.size} className="form-control"  name='size'>
+          <select value={ this.state.size} className="form-control"  name='size'>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
@@ -24,13 +29,24 @@ class PizzaForm extends React.Component{
         </div>
         <div className="col" >
           <div className="form-check">
-            <input className="form-check-input" type="radio" name='vegetarian' value='Vegetarian' checked={this.state.vegetarian==='Vegetarian'}/>
+            <input 
+              className="form-check-input" 
+              type="radio" name='vegetarian' 
+              value='Vegetarian' 
+              checked={this.state.vegetarian==='Vegetarian'}  
+            />
             <label className="form-check-label">
               Vegetarian
             </label>
           </div>
           <div className="form-check">
-            <input className="form-check-input" type="radio" name='vegetarian'value='Not Vegetarian' checked={this.state.vegetarian==="Not Vegetarian"}/>
+            <input 
+              className="form-check-input" 
+              type="radio" 
+              name='vegetarian'
+              value='Not Vegetarian' 
+              checked={this.state.vegetarian==="Not Vegetarian"}
+            />
             <label className="form-check-label">
               Not Vegetarian
             </label>
@@ -43,14 +59,13 @@ class PizzaForm extends React.Component{
     )
   }
   // new pizza id
-   newPizzaID = () => this.props.pizzas.slice(-1)[0].id + 1
+  //  newPizzaID = () => this.props.pizzas.slice(-1)[0].id + 1
 
   //onPizzaChange
   onPizzaChange = (e) => {
     this.setState({
-      id: this.newPizzaID(),
       [e.target.name]: e.target.value
-      })
+    })
   }
   //onSubmitPizza
   handleSubmitPizza = () => {
@@ -62,21 +77,17 @@ class PizzaForm extends React.Component{
       vegetarian: null
     });
   }
-  //selectedPizza 
-  selectedPizza = () =>{
-    if (this.props.selectedPizzaEdit.length !== 0){
-      let pizza = this.props.pizzas.filter(pizza => pizza.id === this.props.selectedPizzaEdit[0])[0];
-      const vegetarian = () => pizza.vegetarian ? "Vegetarian" : "Not Vegetarian";
-      // console.log(vegetarian())
-      this.setState({
-        id: pizza.id,
-        size: pizza.size,
-        topping: pizza.topping,
-        vegetarian: vegetarian()
-      });
-    }
-  }
-  
-
 }
 export default PizzaForm
+// toUpdateThisPizza(){
+//   if (this.selectedPizza) {
+//     let pizza = this.selectedPizza;
+//     const vegetarian = () => pizza.vegetarian ? "Vegetarian" : "Not Vegetarian";
+//     return this.setState({
+//       id: pizza.id,
+//       size: pizza.size,
+//       topping: pizza.topping,
+//       vegetarian: vegetarian()
+//     })
+//   }
+// }
