@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Pizza from '../components/Pizza'
 
 
-class PizzaList extends Component {
+function PizzaList(props) {
 
-  render() {
     return (
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Topping</th>
-            <th scope="col">Size</th>
-            <th scope="col">Vegetarian?</th>
-            <th scope="col">Edit</th>
-          </tr>
-        </thead>
-          <tbody>
-              {
-                  this.props.pizzas.map(p => <Pizza handleEditClick = {this.props.handleEditClick} pizza = {p} key = {p.id}/>)
-              }
-          </tbody>
-      </table>
+        <table className="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Topping</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">Vegetarian?</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                {
+                    props.pizzas.map(p => <Pizza handleEditClick = {props.handleEditClick} pizza = {p} key = {p.id}/>)
+                }
+            </tbody>
+        </table>
     );
-  }
 
 }
 

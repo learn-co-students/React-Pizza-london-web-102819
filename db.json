@@ -2,9 +2,9 @@
   "pizzas": [
     {
       "id": 1,
-      "topping": "Plain",
-      "size": "Small",
-      "vegetarian": true
+      "topping": "Duck",
+      "size": "Medium",
+      "vegetarian": false
     },
     {
       "id": 2,
@@ -94,18 +94,6 @@
       "topping": "Ham and cheese",
       "id": 16,
       "size": "Medium",
-      "vegetarian": true
-    },
-    {
-      "topping": "Gooosdfsd",
-      "id": 17,
-      "size": "Medium",
-      "vegetarian": true
-    },
-    {
-      "topping": "Loggins",
-      "id": 18,
-      "size": "Large",
       "vegetarian": true
     }
   ]
