@@ -10,4 +10,9 @@ const POST_NEW_PIZZA = (configObj) => {
    .then (resp => resp.json())
 }
 
+const PATCH_PIZZA = (pizzaID,configObj) => {
+   return fetch(`${PIZZA_URL}/${pizzaID}`, configObj)
+   .then (resp => resp.json())
+}
+
 export default { GET_ALL_PIZZA, POST_NEW_PIZZA}

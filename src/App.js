@@ -29,8 +29,18 @@ class App extends Component {
 
   // pizza form _ newOrder/update pizza
   onSubmitPizzaForm = (pizza) =>{
+//POST configObj
+    // let configObj = {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     "Accept": "application/json"
+    //   },
+    //   body: JSON.stringify(pizza)
+    // }
+//PATCH configObj
     let configObj = {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         "Accept": "application/json"
@@ -39,10 +49,11 @@ class App extends Component {
     }
     API.POST_NEW_PIZZA(configObj).then(pizzaData => 
       this.setState({
-        pizzas:[...this.state.pizzas, pizzaData]
+        pizzas:this.state.pizzas.map(pizza=> {return pizza.id === pizzaData.id ? pizzaData : pizza }) 
       })
     );
   }
+
   onEditingPizza = (pizzaID) => {
     this.setState({
       selectedPizzaEdit:[pizzaID]
@@ -54,8 +65,19 @@ class App extends Component {
       let pizza = this.state.pizzas.filter(pizza => pizza.id === this.state.selectedPizzaEdit[0])[0];
       // console.log(pizza)
       return pizza;
+    } else {
+      return this.defaultPizza();
     }
   } 
+
+  defaultPizza = () => {
+    return {
+      id: null,
+      size: 'Small',
+      topping: null,
+      vegetarian: null
+    }
+  }
 }
 
 

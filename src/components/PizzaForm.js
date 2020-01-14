@@ -3,10 +3,10 @@ import React from "react"
 class PizzaForm extends React.Component{
 
   state = {
-    id: null,
-    size: "Small",
-    topping: null,
-    vegetarian: null
+    id: this.props.selectedPizza.id,
+    size: this.props.selectedPizza.size,
+    topping: this.props.selectedPizza. topping,
+    vegetarian: this.props.selectedPizza.vegetarian ? "Vegetarian" : "Not Vegetarian"
   }
 
   render (){
