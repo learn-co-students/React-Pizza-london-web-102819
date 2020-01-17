@@ -64,6 +64,7 @@ class App extends Component {
         })        
       );
     }
+    // resetting the form in the DOM to be 'empty'
     this.setState({
       editedPizza: {
         id: '',
@@ -85,7 +86,6 @@ class App extends Component {
   //onPizzaChange
   onPizzaChange = (e) => {
 
-
     let name = e.target.name;
     let value = e.target.value; 
 
@@ -103,7 +103,16 @@ class App extends Component {
       }
     })
   )}
+/*  👆this was originally in PizzaForm setting the state of the form (no longer):
+    ...
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+    ...
+    since syntheticevents in react reset event's values immediately, in avoiding event.persist(), 
+    assign the values to varialbes to capture them.
+    => let name = e.target.name & let value = e.target.value
+*/
 }
-
 
 export default App
